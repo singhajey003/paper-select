@@ -13,14 +13,21 @@
     "input",
     "form"
   ],
+  "main": "paper-select.html",
   "license": "MIT",
   "homepage": "https://github.com/naderio/paper-select/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "paper-select": "naderio/paper-select#master"
+    "paper-menu": "PolymerElements/paper-menu#^1.0.0",
+    "paper-item": "PolymerElements/paper-item#^1.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*",
     "paper-input": "PolymerElements/paper-input#^1.0.0",
     "paper-progress": "PolymerElements/paper-progress#^1.0.0"
   }
