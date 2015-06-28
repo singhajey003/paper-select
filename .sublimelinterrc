@@ -1,0 +1,27 @@
+{
+  "linters": {
+    "htmltidy": {
+      "@disable": false,
+      "args": [],
+      "excludes": []
+    },
+    "csslint": {
+      "@disable": false,
+      "args": [],
+      "errors": "",
+      "excludes": [],
+      "ignore": "",
+      "warnings": ""
+    },
+    "jshint": {
+      "@disable": false,
+      "args": [],
+      "excludes": []
+    },
+    "jscs": {
+      "@disable": false,
+      "args": [],
+      "excludes": []
+    }
+  }
+}

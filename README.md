@@ -2,11 +2,11 @@
 
 A Polymer custom element for input selection.
 
-Work based on [coner/multi-value-suggestbox](http://coner.github.io/multi-value-suggestbox/) and inspired by [Selectize.js](http://brianreavis.github.io/selectize.js/)
+Work inspired by [coner/multi-value-suggestbox](http://coner.github.io/multi-value-suggestbox/), [Selectize.js](http://brianreavis.github.io/selectize.js/), and [Angular Material Chips](https://material.angularjs.org/latest/#/demo/material.components.chips)
 
 ## Demo
 
-[Check it live!](http://naderio.github.io/paper-select/components/paper-select/demo.html)
+[Check it live!](http://naderio.github.io/paper-select/)
 
 ## Docs
 

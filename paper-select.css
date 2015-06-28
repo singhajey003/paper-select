@@ -1,4 +1,3 @@
-
 :host {
   display: block;
   box-sizing: border-box;
@@ -9,11 +8,14 @@
   pointer-events: none;
 }
 
-:host #selectList {
-  display: block;
+:host #selectedList {
+  /*display: block;*/
+  
+  display: flex;
   min-width: 11em;
 }
-:host #selectList > paper-select-item {
+
+:host #selectedList > .selected-item {
   display: block;
   position: relative;
   box-sizing: border-box;
@@ -31,15 +33,18 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-:host([multiple]) #selectList {
+
+:host([multiple]) #selectedList {
   /*height: 36px;*/
   /*line-height: 36px;*/
   /*margin-top: -1px;*/
   /*margin-bottom: -1px;*/
-  display: flex;
+  /*display: flex;*/
+  
   flex-wrap: wrap;
 }
-:host([multiple]) #selectList > paper-select-item {
+
+:host([multiple]) #selectedList > .selected-item {
   display: inline-block;
   padding-right: 14px;
   margin-right: 4px;
@@ -49,7 +54,11 @@
   margin-top: 1px;
 }
 
-:host #selectList > paper-select-item > a {
+:host(:not([multiple])) #selectedList > .selected-item {
+  flex: 1;
+}
+
+:host #selectedList > .selected-item > a {
   display: block;
   position: absolute;
   top: 50%;
@@ -63,37 +72,21 @@
   text-decoration: none;
   cursor: pointer;
 }
-:host([multiple]) #selectList > paper-select-item > a {
+
+:host([multiple]) #selectedList > .selected-item > a {
   right: 4px;
   width: 6px;
   height: 6px;
 }
-:host #selectList > paper-select-item > a:hover {
+
+:host #selectedList > .selected-item > a:hover {
   background-color: #d34336;
 }
-:host #selectList > * {
+
+:host #selectedList > * {
   width: auto;
 }
-:host #placeholder {
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  background-color: transparent;
-  border: none;
-  outline: none;
-}
-:host #input-container {
-  display: inline-block;
-  position: relative;
-  background: transparent;
-  z-index: 0;
-}
+
 :host #selectInput {
   position: relative;
   display: inline-block;
@@ -108,6 +101,7 @@
   border: none;
   flex: 1;
 }
+
 :host #clearButton {
   display: inline-block;
   position: absolute;
@@ -122,29 +116,23 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 :host paper-menu {
   position: absolute;
   left: 4px;
   right: 4px;
   margin-top: 8px;
+  padding: 0;
   top: 100%;
   z-index: 1;
 }
-/*paper-menu /deep/ #scroller {
-  width: auto !important;
-  height: auto !important;
-  max-height: auto !important;
+
+:host paper-menu paper-item,
+:host ::content paper-item {
+  position: relative;
+  cursor: pointer;
 }
-core-menu {
-  margin: 0;
-}*/
-:host ::content .empty-action {
-  /*  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;*/
-}
+
 :host ::content paper-progress {
   position: absolute;
   left: 0;

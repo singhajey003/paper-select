@@ -22,34 +22,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <body>
 
     <!-- You can use the document as a place to set up your fixtures. -->
-    <paper-select></paper-select>
+    <paper-select id="select-1"></paper-select>
 
     <script>
-      var myEl = document.querySelector('paper-select');
+      var select1 = document.querySelector('paper-select#select-1');
 
-      suite('<paper-select>', function() {
+      suite('<paper-select> default', function() {
 
-        test('defines the "author" property', function() {
-          assert.equal(myEl.author.name, 'Dimitri Glazkov');
-          assert.equal(myEl.author.image, 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg');
+        test('defines "data" property', function() {
+          assert.isArray(select1.data, 'not an array');
+          assert.lengthOf(select1.data, 0, 'array not empty');
         });
 
-        test('says hello', function() {
-          assert.equal(myEl.sayHello(), 'paper-select says, Hello World!');
-
-          var greetings = myEl.sayHello('greetings Earthlings');
-          assert.equal(greetings, 'paper-select says, greetings Earthlings');
+        test('defines "input" property', function() {
+          assert.equal(select1.input, '');
         });
 
-        test('fires lasers', function(done) {
-          myEl.addEventListener('paper-select-lasers', function(event) {
-            assert.equal(event.detail.sound, 'Pew pew!');
-            done();
-          });
-          myEl.fireLasers();
+        test('defines "bindValue" property', function() {
+          assert.equal(select1.bindValue, null);
         });
+
+        test('defines "value" property', function() {
+          assert.equal(select1.value, '');
+        });
+
+        // test('says hello', function() {
+        //   assert.equal(select1.sayHello(), 'paper-select says, Hello World!');
+
+        //   var greetings = select1.sayHello('greetings Earthlings');
+        //   assert.equal(greetings, 'paper-select says, greetings Earthlings');
+        // });
+
+        // test('fires lasers', function(done) {
+        //   select1.addEventListener('paper-select-lasers', function(event) {
+        //     assert.equal(event.detail.sound, 'Pew pew!');
+        //     done();
+        //   });
+        //   select1.fireLasers();
+        // });
 
       });
+
+      suite('<paper-select> multipe', function() {});
+
+      suite('<paper-select> one', function() {});
+      
     </script>
 
   </body>
