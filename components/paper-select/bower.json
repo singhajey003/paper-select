@@ -1,6 +1,6 @@
 {
   "name": "paper-select",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "authors": [
     "Nader Toukabri <contact@nader.tn>"
   ],
@@ -22,6 +22,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
+    "iron-a11y-keys": "PolymerElements/iron-a11y-keys#^1.0.0",
     "paper-input": "PolymerElements/paper-input#^1.0.0",
     "paper-menu": "PolymerElements/paper-menu#^1.0.0",
     "paper-item": "PolymerElements/paper-item#^1.0.0"

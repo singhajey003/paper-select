@@ -9,8 +9,6 @@
 }
 
 :host #selectedList {
-  /*display: block;*/
-  
   display: flex;
   min-width: 11em;
 }
@@ -35,12 +33,6 @@
 }
 
 :host([multiple]) #selectedList {
-  /*height: 36px;*/
-  /*line-height: 36px;*/
-  /*margin-top: -1px;*/
-  /*margin-bottom: -1px;*/
-  /*display: flex;*/
-  
   flex-wrap: wrap;
 }
 
@@ -87,7 +79,7 @@
   width: auto;
 }
 
-:host #selectInput {
+:host #input {
   position: relative;
   display: inline-block;
   box-sizing: border-box;

@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
+    "iron-a11y-keys": "PolymerElements/iron-a11y-keys#^1.0.0",
     "paper-input": "PolymerElements/paper-input#^1.0.0",
     "paper-menu": "PolymerElements/paper-menu#^1.0.0",
     "paper-item": "PolymerElements/paper-item#^1.0.0"
@@ -30,11 +31,11 @@
     "web-component-tester": "*",
     "paper-progress": "PolymerElements/paper-progress#^1.0.0"
   },
-  "_release": "d8e2cb21f3",
+  "_release": "829f9f77aa",
   "_resolution": {
     "type": "branch",
     "branch": "release",
-    "commit": "d8e2cb21f31d4b5901756044f6dd5b3ffcbba34d"
+    "commit": "829f9f77aa9ba60d69adb632fc63ba7cb3e38e32"
   },
   "_source": "git://github.com/naderio/paper-select.git",
   "_target": "release",
