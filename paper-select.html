@@ -6,7 +6,6 @@
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
-<!-- <link rel="import" href="../grapp-template-ref/grapp-template-ref.html"> -->
 
 <!--
 A proper select input for the Polymer world.
@@ -62,7 +61,6 @@ Example:
             <template is="dom-repeat" items="{{bindValue}}">
               <div class="selected-item">
                 <span>{{_labelOf(item)}}</span>
-                <!-- <grapp-template-ref ref="paper-select-selected-item-template" bind="{{_wrap(item)}}"></grapp-template-ref> -->
                 <a on-tap="_removeTapped" hidden$="[[readonly]]"></a>
               </div>
             </template>
@@ -71,7 +69,6 @@ Example:
           <template is="dom-if" if="{{!multiple}}">
             <div class="selected-item">
               <span>{{_labelOf(bindValue)}}</span>
-              <!-- <grapp-template-ref ref="paper-select-selected-item-template" i-bind='{"item": {"name": "test"} }' i-bind="{{bindValue}}" bind="{{_wrap(bindValue)}}"></grapp-template-ref> -->
               <a on-tap="_removeTapped" hidden$="[[readonly]]"></a>
             </div>
           </template>
@@ -114,7 +111,6 @@ Example:
         <template id="selectMenuRepeat" is="dom-repeat" items="{{data}}">
           <paper-item on-tap="_menuItemTapped">
             <span>[[{_labelOf(item)]]</span>
-            <!-- <grapp-template-ref ref="paper-select-item-template" bind="{{_wrap(item)}}"></grapp-template-ref> -->
             <paper-ripple></paper-ripple>
           </paper-item>
         </template>
