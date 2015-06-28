@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
   }
   
-  .card h2 {
+  .card > h2 {
     margin: 0;
     padding: 16px;
     background-color: #bbb;
@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     font-size: 18px;
   }
   
-  .card .content {
+  .card > .content {
     padding: 16px;
   }
   </style>
@@ -100,64 +100,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <body>
 
-  <!-- <template is="dom-template" id="template"><span>the template content</span></template>
-    <template is="dom-template" id="template-bind">-<span>[[key]]</span>-</template> -->
+    <!-- <template is="dom-template" id="template"><span>the template content</span></template>
+      <template is="dom-template" id="template-bind">-<span>[[key]]</span>-</template> -->
 
-  <!-- <template id="paper-select-selected-item-template" is="dom-template">
-      <span>[[item.name]]</span> 
-    </template>
+    <!-- <template id="paper-select-selected-item-template" is="dom-template">
+        <span>[[item.name]]</span> 
+      </template>
 
     <template id="paper-select-item-template" is="dom-template">
       <span>[[item.name]]</span>
     </template> -->
 
-  <!-- <dom-module id="demo-app">
+  <main>
 
-    <style>
-    pre {
-      font-size: 12px;
-    }
-    main {
-      max-width: 800px;
-      margin: auto;
-      margin-top: 50px;
-      margin-bottom: 200px !important;
-    }
-
-    .card {
-      display: block;
-      margin: 28px 0;
-      font-size: 16px;
-      background-color: #fff;
-      border-radius: 2px;
-      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-    }
-    .card h2 {
-      margin: 0;
-      padding: 16px;
-      background-color: #bbb;
-      color: #fff;
-      font-size: 18px;
-    }
-    .card .content {
-      padding: 16px;
-    }
-    </style> -->
-
-  <template id="template" is="dom-bind">
-    <!-- <template> -->
-
-    <!-- <section class="card">
-        <div class="content">
-          <template is="dom-template" id="template"><span>the template content</span></template>
-          <grapp-template-ref ref="template" id="template-ref" bind='{"key":"value"}'></grapp-template-ref>
-
-          <template is="dom-template" id="template-bind">-<span>[[key]]</span>-</template>
-          <grapp-template-ref ref="template-bind" id="template-bind-ref" bind='{"key":"value"}'></grapp-template-ref>
-        </div>
-      </section> -->
-
-    <main>
+    <template id="template" is="dom-bind">
 
       <section class="card">
 
@@ -338,121 +294,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         </section> -->
 
-    </main>
+    </template>
 
-  </template>
-
-  <!-- </dom-module> -->
-
-
-  <!-- <script>
-    Polymer({
-
-      is: 'demo-app',
-
-      properties: {
-        data: {
-          type: Array,
-          value: function() { return data; },
-        },
-        selectInput1Value: {
-          type: Array,
-          value: function() { return []; },
-        },
-        selectInput2Value: {
-          type: Array,
-          value: function() { return []; },
-        },
-        selectInput3Value: {
-          type: Array,
-          value: function() { return []; },
-        },
-        selectInput4Value: {
-          type: Array,
-          value: function() { return []; },
-        },
-        selectInput6Value: {
-          type: Array,
-          value: function() { return []; },
-        },
-        selectInput7Value: {
-          type: Array,
-          value: function() { return []; },
-        },
-        selectOneInput1Value: {
-          type: Object,
-          value: function() { return null; },
-        },
-        selectOneInput2Value: {
-          type: Object,
-          value: function() { return null; },
-        },
-        selectOneInput3Value: {
-          type: Object,
-          value: function() { return null; },
-        },
-        selectOneInput4Value: {
-          type: Object,
-          value: function() { return null; },
-        },
-      },
-
-      json: function(data) {
-        return JSON.stringify(data, null, 2);
-      },
-
-      eventFired: function(e, d) {
-        console.log(e.type, d, e);
-      },
-
-      inputChanged: function(e, d) {
-        // console.log('input-changed', e, d);
-        var input = (e.detail.value || '').trim().toLowerCase();
-        if (input)
-          e.target.data = data.filter(function(item) {
-            return item.name.toLowerCase().indexOf(input) === 0;
-          });
-        // console.log('input-changed', e.detail.value, e.target.data);
-      },
-
-      inputChanged_: function(e) {
-        var input = (e.detail.value || '').trim().toLowerCase();
-        if (input)
-          e.target.data = data.filter(function(item) {
-            return item.name.toLowerCase().indexOf(input) === 0;
-          }).map(function(e) {
-            return e.name;
-          });
-      },
-
-      addItem: function(e) {
-        // console.log('adding-item', e.detail.value);
-        var input = (e.detail.value || '').trim()
-        e.detail.value = {
-          name: input
-        };
-      },
-
-      ready: function(){
-
-        this.data = data;
-
-        this.selectInput2Value = data.slice(1, 3);
-
-        this.selectOneInput2Value = data[0];
-
-        this.selectInput4Value = this.selectInput2Value.map(function(item) {
-          return item.name;
-        });
-
-        this.selectOneInput4Value = this.selectOneInput2Value.name;
-
-      }
-
-    });
-    </script>
-
-    <demo-app></demo-app> -->
+  </main>
 
   <script>
   'use strict';
@@ -468,23 +312,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   };
 
   template.inputChanged = function(e, d) {
-    // console.log('input-changed', e, d);
     var input = (e.detail.value || '').trim().toLowerCase();
     if (input)
-      e.target.data = data.filter(function(item) {
+      e.target.options = data.filter(function(item) {
         return item.name.toLowerCase().indexOf(input) === 0;
       });
-    // console.log('input-changed', e.detail.value, e.target.data);
+    else
+      e.target.options = [];
+   // console.log('input-changed', e.detail.value, e.target.options);
   };
 
   template.inputChanged_ = function(e) {
     var input = (e.detail.value || '').trim().toLowerCase();
     if (input)
-      e.target.data = data.filter(function(item) {
+      e.target.options = data.filter(function(item) {
         return item.name.toLowerCase().indexOf(input) === 0;
       }).map(function(e) {
         return e.name;
       });
+    else
+      e.target.options = [];
+    // console.log('input-changed', e.detail.value, e.target.options);
   };
 
   template.addItem = function(e) {
