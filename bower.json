@@ -17,11 +17,10 @@
   "homepage": "https://github.com/naderio/paper-select/",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "paper-select": "naderio/paper-select#master"
+    "paper-select": "naderio/paper-select#develop"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "paper-input": "PolymerElements/paper-input#^1.0.0",
     "paper-progress": "PolymerElements/paper-progress#^1.0.0"
   }
 }
