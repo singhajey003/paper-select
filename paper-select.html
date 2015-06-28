@@ -3,17 +3,19 @@
 <link rel="import" href="../paper-input/paper-input-behavior.html">
 <link rel="import" href="../paper-input/paper-input-container.html">
 <link rel="import" href="../paper-input/paper-input-error.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
+<!-- <link rel="import" href="../grapp-template-ref/grapp-template-ref.html"> -->
 
 <!--
 A proper select input for the Polymer world.
 
 Example:
 
-    <paper-select id="selectInput1" 
-      multiple unique 
+    <paper-select id="select-input-1" 
+      multiple 
       label-field="name"
       bind-value="{{value}}"
       on-input-changed="inputChanged"
@@ -26,9 +28,11 @@ Example:
     template.inputChanged = function(e) {
       var input = (e.detail.value || '').trim().toLowerCase();
       if (input)
-        e.target.data = data.filter(function(item) {
+        e.target.options = data.filter(function(item) {
           return item.name.toLowerCase().indexOf(input) === 0;
         });
+      else
+        e.target.options = [];
     };
     
     template.addItem = function(e) {
@@ -49,7 +53,14 @@ Example:
 
   <template>
 
-    <paper-input-container id="inputContainer" no-label-float="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid="[[invalid]]" _input-selector="#selectInput">
+    <paper-input-container id="inputContainer" 
+      no-label-float="[[noLabelFloat]]" 
+      always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]"
+       auto-validate$="[[autoValidate]]" 
+       disabled$="[[disabled]]" 
+       invalid="[[invalid]]" 
+       _input-selector="#input"
+      >
 
       <label hidden$="[[!label]]">[[label]]</label>
 
@@ -61,7 +72,8 @@ Example:
             <template is="dom-repeat" items="{{bindValue}}">
               <div class="selected-item">
                 <span>{{_labelOf(item)}}</span>
-                <a on-tap="_removeTapped" hidden$="[[readonly]]"></a>
+                <!-- <grapp-template-ref ref="paper-select-selected-item-template" bind="{{_wrap(item)}}"></grapp-template-ref> -->
+                <a on-tap="_removeSelectedItemTapped" hidden$="[[readonly]]"></a>
               </div>
             </template>
           </template>
@@ -69,36 +81,28 @@ Example:
           <template is="dom-if" if="{{!multiple}}">
             <div class="selected-item">
               <span>{{_labelOf(bindValue)}}</span>
-              <a on-tap="_removeTapped" hidden$="[[readonly]]"></a>
+              <!-- <grapp-template-ref ref="paper-select-selected-item-template" i-bind='{"item": {"name": "test"} }' i-bind="{{bindValue}}" bind="{{_wrap(bindValue)}}"></grapp-template-ref> -->
+              <a on-tap="_removeSelectedItemTapped" hidden$="[[readonly]]"></a>
             </div>
           </template>
 
         </template>
 
-        <input id="selectInput" is="iron-input"
+        <input id="input" is="iron-input" type="text"
+          hidden$="{{!_showInput}}"
+          tabindex="0"
           class="paper-input-input"
           value="{{input::input}}"
-          tabindex="0" hidden$="{{!_showInput}}"
           aria-labelledby$="[[_ariaLabelledBy]]"
           aria-describedby$="[[_ariaDescribedBy]]"
           disabled$="[[disabled]]"
-          invalid="{{invalid}}"
-          prevent-invalid-input="[[preventInvalidInput]]"
-          allowed-pattern="[[allowedPattern]]"
-          validator="[[validator]]"
-          type$="[[type]]"
-          pattern$="[[pattern]]"
-          maxlength$="[[maxlength]]"
-          required$="[[required]]"
-          autocomplete$="[[autocomplete]]"
+          i-invalid="{{invalid}}"
+          i-validator="[[validator]]"
+          i-required$="[[required]]"
           autofocus$="[[autofocus]]"
-          inputmode$="[[inputmode]]"
-          minlength$="[[minlength]]"
-          name$="[[name]]"
-          placeholder$="[[placeholder]]"
-          readonly$="[[readonly]]"
-          list$="[[list]]"
-          size$="[[size]]"
+          i-readonly$="[[readonly]]"
+          on-keydown="_onInputKeyDown"
+          on-keyup="_onInputKeyÛp"
         >
 
         <a id="clearButton" hidden$="{{!input}}" on-tap="clear" hidden$="[[readonly]]"></a>
@@ -107,22 +111,20 @@ Example:
 
       <content select="paper-progress"></content>
 
-      <paper-menu id="selectMenu" hidden$="{{!_showMenu}}" tabindex="0">
-        <template id="selectMenuRepeat" is="dom-repeat" items="{{data}}">
-          <paper-item on-tap="_menuItemTapped">
+      <paper-menu id="optionsMenu" hidden$="{{!_showOptions}}" i-tabindex="0">
+        <template id="optionsRepeat" is="dom-repeat" items="{{options}}">
+          <paper-item on-tap="_optionItemTapped" on-keydown="_optionItemKeyUp" tabindex="0">
             <span>[[{_labelOf(item)]]</span>
+            <!-- <grapp-template-ref ref="paper-select-item-template" bind="{{_wrap(item)}}"></grapp-template-ref> -->
             <paper-ripple></paper-ripple>
           </paper-item>
         </template>
-        <template is="dom-if" if="{{nonmatching}}">
-          <content select="paper-item">
-            <paper-item class="add-action" on-tap="_addItem">
-              <span>Add</span>&nbsp;
-              <strong>{{input}}</strong>
-              <paper-ripple></paper-ripple>
-            </paper-item>
-          </content>
-        </template>
+        <content select="paper-item">
+          <paper-item class="add-action" on-tap="_addItem" hidden$="{{!_showAddAction}}" disabled$="{{!_showAddAction}}">
+            <span>Add</span>&nbsp;<strong>{{input}}</strong>
+            <paper-ripple></paper-ripple>
+          </paper-item>
+        </content>
       </paper-menu>
 
       <template is="dom-if" if="[[errorMessage]]">
@@ -140,6 +142,16 @@ Example:
       <template id="paper-select-item-template" is="dom-template">
         <content select="template[item]"></content>
       </template> -->
+
+      <iron-a11y-keys target="[[_self]]" keys="up down" on-keys-pressed="_cancelKeyboardEventScroll"></iron-a11y-keys>
+
+      <iron-a11y-keys target="[[_input]]" keys="down" on-keys-pressed="_focusOnOptionsPressed"></iron-a11y-keys>
+
+      <!-- <iron-a11y-keys target="[[_input]]" keys="esc" on-keys-pressed="clear"></iron-a11y-keys> -->
+
+      <!-- <iron-a11y-keys target="[[_input]]" keys="enter comma U+00BC +188" on-keys-pressed="_addItemPressed"></iron-a11y-keys> -->
+
+      <!-- <iron-a11y-keys target="[[_input]]" keys="del backspace U+0008 +8" on-keys-pressed="_removeSelectedItemPressed"></iron-a11y-keys> -->
 
     </paper-input-container>
 
@@ -164,12 +176,28 @@ Polymer({
     role: 'button'
   },
 
+  _defaultValue: null,
+
   properties: {
+
+    _self: {
+      type: Object,
+      value: function() {
+        return this;
+      }
+    },
+
+    _input: {
+      type: Object,
+      value: function() {
+        return this.$.input;
+      }
+    },
 
     /**
      * Items set to select from
      */
-    data: {
+    options: {
       type: Array,
       value: function() {
         return [];
@@ -263,16 +291,13 @@ Polymer({
       computed: '_computeShowInput(multiple, bindValue)'
     },
 
-    _showMenu: {
-      computed: '_computeShowMenu(data, nonmatching, input)'
+    _showOptions: {
+      computed: '_computeShowOptions(options, _showAddAction)'
     },
 
-    // __removeTapped: {
-    //   type: Function,
-    //   value: function() {
-    //     return this._removeTapped.bind(this);
-    //   }
-    // },
+    _showAddAction: {
+      computed: '_computeShowAddAction(nonmatching, input)'
+    },
 
   },
 
@@ -281,8 +306,9 @@ Polymer({
   ],
 
   listeners: {
-    'blur': '_onBlur',
-    'selectInput.bind-value-changed': '_supressInnerBindValueChange'
+    // 'blur': '_onBlur',
+    // 'keydown': '_onKeyDown',
+    'input.bind-value-changed': '_stopPropagation'
   },
 
   // Element Lifecycle
@@ -291,29 +317,23 @@ Polymer({
     this.toggleClass('paper-input-input', true);
   },
 
-  ready: function() {},
+  ready: function() {
+    var self = this;
+    this.$.input.validate = function (value) {
+      return !self.required || !!self.bindValue;
+    };
+  },
 
   attached: function() {
-    this.data = this.data || null;
+    this.options = this.options || null;
     this.bindValue = this.bindValue || this.value || this._defaultValue;
     this.input = this.input || '';
   },
 
   // Element Behavior
 
-  _fixLabelState: function() {
-    // console.log('_fixLabelState')
-    this.$.inputContainer._inputHasContent = !!this.bindValue || !!this.input;
-  },
-
-  _supressInnerBindValueChange: function(e) {
-    e.stopPropagation();
-  },
-
   _inputChanged: function() {
-    // console.log('_inputChanged', arguments);
-    // this.fire('input', {value: this.input});
-    this._fixLabelState();
+    // console.log('_inputChanged', arguments);    this._fixLabelState();
   },
 
   _valueChanged: function() {
@@ -322,20 +342,20 @@ Polymer({
       this.value = this.bindValue ? this.bindValue.map(this._formValueOf.bind(this)).join(',') : '';
     else
       this.value = this.bindValue ? this._formValueOf(this.bindValue) : '';
+    this.$.inputContainer._handleValue(this.$.input);
     this._fixLabelState();
-    // this.fire('bind-value-changed', {value: this.bindValue});
-  },
-
-  _focus: function() {
-    this.$.selectInput.focus();
   },
 
   _computeShowInput: function(multiple, bindValue) {
     return multiple || !bindValue;
   },
 
-  _computeShowMenu: function(data, nonmatching, input) {
-    return data && data.length || nonmatching && input;
+  _computeShowOptions: function(options, _showAddAction) {
+    return options && options.length || _showAddAction;
+  },
+
+  _computeShowAddAction: function(nonmatching, input) {
+    return nonmatching && input.trim();
   },
 
   _wrap: function(item) {
@@ -344,7 +364,6 @@ Polymer({
     };
   },
 
-  _defaultValue: null,
 
   /**
    * Resets component.
@@ -359,12 +378,12 @@ Polymer({
    */
   clear: function() {
     this.input = '';
-    this.data = null;
-    this.$.selectMenu.selected = null;
+    this.options = null;
+    this.$.optionsMenu.selected = null;
   },
 
   /**
-   * Prepares select item's display.
+   * Prepares select/option item's display.
    *
    * @param {object} Select item data.
    * @return {string} Label.
@@ -399,6 +418,15 @@ Polymer({
   },
 
 
+  _focus: function() {
+    this.$.input.focus();
+  },
+
+  _fixLabelState: function() {
+    // console.log('_fixLabelState')
+    this.$.inputContainer._inputHasContent = !!this.bindValue || !!this.input;
+  },
+
   _onBlur: function() {
     // if (this.nonmatching && this.input && this.selectOnBlur)
     //   this._addItem();
@@ -406,11 +434,39 @@ Polymer({
     //   this.async(this.clear.bind(this), 100);
   },
 
+  _onKeyDown: function(event, detail) {
+    switch (event.keyCode) {
+      case 38: // up arrow
+      case 40: // down arrow
+        event.preventDefault();
+        event.stopPropagation();
+        break;
+    }
+  },
+
+  _cancelEvent: function(event, detail) {
+    event.preventDefault();
+    event.stopPropagation();
+  },
+
+  _preventDefault: function(event) {
+    event.preventDefault();
+  },
+
+  _stopPropagation: function(event) {
+    event.stopPropagation();
+  },
+
+  _cancelKeyboardEventScroll: function(event, detail) {
+    detail.keyboardEvent.preventDefault();
+    // detail.keyboardEvent.stopPropagation();
+  },
+
   _elementTapped: function(event, detail) {
     this._focus();
   },
 
-  _removeTapped: function(event, detail) {
+  _removeSelectedItemTapped: function(event, detail) {
     if (this.multiple) {
       var value = Polymer.dom(event).rootTarget.parentElement.value;
       var index = this.bindValue.indexOf(event.model.item);
@@ -427,13 +483,75 @@ Polymer({
     this.async(this._focus.bind(this));
   },
 
-  _menuItemTapped: function(event, detail) {
+  _onInputKeyDown: function(event, detail) {
+    switch (event.keyCode) {
+      case 188: // comma
+        if (this.nonmatching && this.input.trim()) {
+          event.preventDefault();
+        }
+        break;
+    }
+  },
+
+  _onInputKeyÛp: function(event, detail) {
+    // console.log('_onInputKeyÛp', event, event.keyCode);
+    switch (event.keyCode) {
+      case 8: // backspace
+        if (this.multiple && this.input.length === 0 && this.bindValue && this.bindValue.length > 0) {
+          this.pop('bindValue');
+          this.notifyPath('bindValue', this.bindValue);
+        }
+        break;
+      case 188: // comma
+      case 13: // enter
+        if (this.nonmatching && this.input.trim()) {
+          this._addItem();
+        }
+        break;
+      // case 27: // escape
+      //   this.clear();
+      //   break;
+      // case 40: // down arrow
+      //   this.$.optionsMenu.focus();
+      //   this.$.optionsMenu.selected = 0;
+      //   break;
+    }
+  },
+
+  // _removeSelectedItemPressed: function(event, detail) {
+  //   if (this.multiple && this.input.length === 0 && this.bindValue && this.bindValue.length > 0) {
+  //     this.pop('bindValue');
+  //     this.notifyPath('bindValue', this.bindValue);
+  //   }
+  // },
+
+  // _addItemPressed: function(event, detail) {
+  //   if (this.nonmatching && this.input.trim()) {
+  //     detail.keyboardEvent.preventDefault();
+  //     this._addItem();
+  //   }
+  // },
+
+  _focusOnOptionsPressed: function(event, detail) {
+    this.$.optionsMenu.focus();
+  },
+
+  _optionItemTapped: function(event, detail) {
     this.selectItem(event.model.item);
   },
 
+  _optionItemKeyUp: function(event, detail) {
+    if (event.keyCode === 13) { // enter
+      this.selectItem(event.model.item);
+    }
+  },
+
   _addItem: function() {
+    var input = this.input.trim();
+    if (!input)
+      return;
     var detail = {
-      value: this.input
+      value: input
     };
     this.fire('adding-item', detail);
     this.async(function() {

@@ -87,7 +87,7 @@
   width: auto;
 }
 
-:host #selectInput {
+:host #input {
   position: relative;
   display: inline-block;
   box-sizing: border-box;
