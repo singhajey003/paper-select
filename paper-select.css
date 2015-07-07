@@ -8,14 +8,12 @@
   pointer-events: none;
 }
 
-:host #selectedList {
-  /*display: block;*/
-  
+:host #selectedContainer {
   display: flex;
   min-width: 11em;
 }
 
-:host #selectedList > .selected-item {
+:host #selectedContainer > .selected-item {
   display: block;
   position: relative;
   box-sizing: border-box;
@@ -34,17 +32,11 @@
   text-overflow: ellipsis;
 }
 
-:host([multiple]) #selectedList {
-  /*height: 36px;*/
-  /*line-height: 36px;*/
-  /*margin-top: -1px;*/
-  /*margin-bottom: -1px;*/
-  /*display: flex;*/
-  
+:host([multiple]) #selectedContainer {
   flex-wrap: wrap;
 }
 
-:host([multiple]) #selectedList > .selected-item {
+:host([multiple]) #selectedContainer > .selected-item {
   display: inline-block;
   padding-right: 14px;
   margin-right: 4px;
@@ -54,11 +46,11 @@
   margin-top: 1px;
 }
 
-:host(:not([multiple])) #selectedList > .selected-item {
+:host(:not([multiple])) #selectedContainer > .selected-item {
   flex: 1;
 }
 
-:host #selectedList > .selected-item > a {
+:host #selectedContainer > .selected-item > a {
   display: block;
   position: absolute;
   top: 50%;
@@ -73,17 +65,17 @@
   cursor: pointer;
 }
 
-:host([multiple]) #selectedList > .selected-item > a {
+:host([multiple]) #selectedContainer > .selected-item > a {
   right: 4px;
   width: 6px;
   height: 6px;
 }
 
-:host #selectedList > .selected-item > a:hover {
+:host #selectedContainer > .selected-item > a:hover {
   background-color: #d34336;
 }
 
-:host #selectedList > * {
+:host #selectedContainer > * {
   width: auto;
 }
 
@@ -125,6 +117,8 @@
   padding: 0;
   top: 100%;
   z-index: 1;
+  max-height: 240px;
+  overflow-y: auto;
 }
 
 :host paper-menu paper-item,

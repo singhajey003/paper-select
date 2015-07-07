@@ -29,9 +29,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       suite('<paper-select> default', function() {
 
-        test('defines "data" property', function() {
-          assert.isArray(select1.data, 'not an array');
-          assert.lengthOf(select1.data, 0, 'array not empty');
+        test('defines "options" property', function() {
+          assert.isArray(select1.options, 'not an array');
+          assert.lengthOf(select1.options, 0, 'array not empty');
         });
 
         test('defines "input" property', function() {

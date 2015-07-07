@@ -100,16 +100,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <body>
 
-    <!-- <template is="dom-template" id="template"><span>the template content</span></template>
-      <template is="dom-template" id="template-bind">-<span>[[key]]</span>-</template> -->
+  <!-- <template id="paper-select-selected-item-template" is="dom-template">
+    <span>[[item.name]]</span> 
+  </template> -->
 
-    <!-- <template id="paper-select-selected-item-template" is="dom-template">
-        <span>[[item.name]]</span> 
-      </template>
-
-    <template id="paper-select-item-template" is="dom-template">
-      <span>[[item.name]]</span>
-    </template> -->
+  <!-- <template id="paper-select-option-item-template" is="dom-template">
+    <span>[[item.name]]</span>
+  </template> -->
 
   <main>
 
@@ -281,11 +278,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             >
 
               <template is="dom-template" selected-item>
-                <strong>{{item.name}}</strong>
+                <strong>[-[item.name]-]</strong>
               </template>
 
-              <template is="dom-template" item>
-                <span>{{item.name}}</span> (<span>{{item.id}}</span>)
+              <template is="dom-template" option-item>
+                <span>[-[item.name]-]</span> (<span>[-[item.id]-]</span>)
               </template>
 
             </paper-select>
